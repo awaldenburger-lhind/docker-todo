@@ -8,5 +8,5 @@ RUN mvn package
 FROM amazoncorretto:11-alpine
 COPY --from=builder /build/target/selenium-scenario.jar /usr/local/
 RUN mkdir /usr/local/images
-ENTRYPOINT ["java", "-jar", "/usr/local/selenium-scenario.jar"]
+#ENTRYPOINT ["java", "-jar", "/usr/local/selenium-scenario.jar"]
 

@@ -1,0 +1,39 @@
+# We need an explicit networks part, as we do not auto-generate networks for containers
+networks:
+  todo-green-metrics-tool-network:
+
+compose-file: !include docker-compose.yml
+
+services:
+  selenium-firefox:
+    image: selenium/standalone-firefox:110.0
+    shm_size: 2gb
+    ports:
+      - "4444:4444"
+      - "7900:7900"
+    expose:
+      - "4444"
+  selenium-usecase:
+    build:
+      context: selenium
+    depends_on:
+      - frontend
+      - selenium-firefox
+    volumes:
+      - "~/images:/usr/local/images"
+
+flow:
+  - name: Run selenium scenario
+    container: docker-todo-selenium-usecase
+    commands:
+      - type: console
+        command: java -jar /usr/local/selenium-scenario.jar
+        note: First run of usage scenario
+        read-notes-stdout: true
+      - type: console
+        command: sleep 30
+        note: Idling
+      - type: console
+        command: java -jar /usr/local/selenium-scenario.jar
+        note: Second run of usage scenario
+        read-notes-stdout: true
