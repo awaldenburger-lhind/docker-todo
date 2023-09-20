@@ -11,7 +11,25 @@ services:
       - backend
     environment:
       - BACKEND_HOSTNAME=backend
-    image: bendahl/todo-frontend:2.0
+    expose:
+      - 8080
     ports:
       - "8080:8080"
     restart: unless-stopped
+  selenium-firefox:
+    image: selenium/standalone-firefox:110.0
+    shm_size: 2gb
+    ports:
+      - "4444:4444"
+      - "7900:7900"
+    expose:
+      - "4444"
+  selenium-usecase:
+    build:
+      context: selenium
+    depends_on:
+      - frontend
+      - selenium-firefox
+    volumes:
+      - "~/images:/usr/local/images"
+
