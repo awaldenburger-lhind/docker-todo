@@ -53,6 +53,9 @@ public class TodoUI extends UI {
         taskField.focus();
         Button addButton = new Button("");
 
+        taskField.setId("taskInput");
+        addButton.setId("addButton");
+
         formLayout.addComponentsAndExpand(taskField);
         formLayout.addComponent(addButton);
         layout.addComponent(formLayout);
@@ -74,6 +77,8 @@ public class TodoUI extends UI {
 
     private void addActionButtons() {
         Button deleteButton = new Button("Delete completed items");
+
+        deleteButton.setId("deleteButton");
 
         deleteButton.addClickListener(click-> todoList.deleteCompleted());
 

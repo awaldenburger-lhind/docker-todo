@@ -23,6 +23,7 @@ public class TodoLayout extends HorizontalLayout {
         setDefaultComponentAlignment(Alignment.MIDDLE_LEFT);
 
         done = new CheckBox();
+        done.addStyleName("todoCheckbox");
         text = new TextField();
         text.addStyleName(ValoTheme.TEXTFIELD_BORDERLESS);
         text.setValueChangeMode(ValueChangeMode.BLUR);
